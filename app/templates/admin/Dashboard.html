@@ -6,7 +6,7 @@
                 <h3> Welcome {{current_user.email}}</h3>
             <div class="d-flex justify-content-end gap-3 ms-auto" style="width: 300px; height: auto ;">
                  <a href="#"> <button type="button" class="btn btn-danger rounded-pill flex-fill">Add Another Account</button></a>
-                 <a href="#" button type="button" class="btn btn-outline-danger rounded-pill flex-fill">Logout</button> </a>
+                 <a href="/logout" button type="button" class="btn btn-outline-danger rounded-pill flex-fill">Logout</button> </a>
             </div>
     </div>
         <br>
@@ -38,11 +38,11 @@
             </div>
         </div>
         
-    
-        <table class="table table-bordered">
-            <h3>Account Dashboard</h3>
+    <div class="table-responsive rounded-3 overflow-hidden border">
+        <table class="table table-secondary table-hover align-middle custom-table-spacing">
+            <h5 style="padding: 20px; font-weight: bold;">Account Dashboard</h5>
             <thead>
-                <tr>
+                <tr style="color: red;">
                     <th>ID</th>
                     <th>Name</th>
                     <th>Price</th>
@@ -62,7 +62,8 @@
                 {% endfor %}
             </tbody>
         </table>
-     </div>
+    </div>
+    </div>
    {% else %}
     <div class="container my-5">
         <p>create have an admin account.</p>

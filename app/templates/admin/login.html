@@ -27,9 +27,16 @@
             </div>
         </div>
         {% if message %}
-            <p style="color:red;">{{ message }}</p>
+        <div class="toast show">
+            <div class="toast-header">
+                <strong class="me-auto">Error</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                <p style="color:red;">{{ message }}</p>
+            </div>
+          </div>
         {% endif %}
-        
     </div>
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
