@@ -4,17 +4,17 @@
     <div class="container my-5 " style="font-family:  Tahoma, Geneva, Verdana, sans-serif;">  
             <div class="d-flex justify-content-between align-items-center">
                 <h3> Welcome {{current_user.email}}</h3>
-            <div class="d-flex justify-content-end gap-3 ms-auto" style="width: 300px; height: auto ;">
-                 <a href="#"> <button type="button" class="btn btn-danger rounded-pill flex-fill">Add Another Account</button></a>
-                 <a href="/logout" button type="button" class="btn btn-outline-danger rounded-pill flex-fill">Logout</button> </a>
+            <div class="d-flex justify-content-end gap-3 "  >
+                 <a href="/Dashboard/add"> <button type="button" class="btn btn-danger  flex-fill">Add Another Account</button></a>
+                 <a href="/logout" button type="button" class="btn btn-outline-danger  flex-fill">Logout</button> </a>
             </div>
     </div>
         <br>
-        <div class="row mb-4">
+        <div class="row mb-4 ">
             <div class="col-lg-3">
                 <div class="card p-3 text-center">
                     <h5>Total Revenue</h5>
-                    <p>{{ total_revenue}}</p>
+                    <p>₦{{ total_revenue}}</p>
                 </div>
             </div>
             <div class="col-lg-3">
@@ -38,16 +38,16 @@
             </div>
         </div>
         
-    <div class="table-responsive rounded-3 overflow-hidden border">
-        <table class="table table-secondary table-hover align-middle custom-table-spacing">
-            <h5 style="padding: 20px; font-weight: bold;">Account Dashboard</h5>
+    <div class="table-responsive rounded-3 overflow-hidden border" style="background-color: #7d868e" >
+        <table class="table table-secondary  table-bordered table-hover align-middle custom-table-spacing" >
+            <p style="padding: 15px; font-weight: bold;">Account Dashboard</p>
             <thead>
-                <tr style="color: red;">
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Sold</th>
+                <tr >
+                    <th style="color: red;">ID</th>
+                    <th style="color: red;">Name</th>
+                    <th style="color: red;">Price</th>
+                    <th style="color: red;">Stock</th>
+                    <th style="color: red;">Sold</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,13 +55,16 @@
                 <tr>
                     <td>{{ account.id }}</td>
                     <td>{{ account.name }}</td>
-                    <td>{{ account.price }}</td>
+                    <td>₦{{ account.price }}</td>
                     <td>{{account.amount_in_stock }}</td>
                     <td>{{ account.amount_sold }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div class="d-flex justify-content-end gap-3 ms-auto" >
+            <a href="#"><button type="button" class="btn btn-dark  mt-4">Ordered Account</button></a>
     </div>
     </div>
    {% else %}
