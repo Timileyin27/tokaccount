@@ -1,15 +1,84 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="container" >
-        <div class="row">
-            <div class="col-lg-6">
-                <img src="{ url_for('static', path='105.png') }" alt="" style="padding: 45px;height: 400px;">  
-            </div>
-            <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start gap-4" style="padding: 45px;">
 
-                <h4 style="font-size: 50px; font-weight: bold;">💰 Earn Money On Your First Post</h4>
-                <p style="font-size: 20px; color: #7d868e;">🌎 Get Monetized From Any Country "</p>
+        <section class="accounts-section">
+
+            {% for account in accounts %}
+            <div class="account-row {% if loop.index % 2 == 0 %}reverse{% endif %} row">
+                
+                <div class="account-image col-lg-6">
+                    <img src="{{ url_for('static', path='105.png') }}" alt="account image">
+                </div>
+
+                <div class="account-content col-lg-6">
+                    <h2>{{ account.name }}</h2>
+                    <p style="font-size: 35px; color: red;"> {{account.price}}</p>
+
+                    <p class="highlight">💰 Earn Money On Your First Post</p>
+                    <p class="subtext">🌎 Get Monetized From Any Country</p>
+                    <button class="btn btn-dark">Add to Cart</button>
+                    <button class="btn btn-outline-dark">Buy Now</button>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </section>
+        <div class="accounts-section  row">
+                
+            <div class="account-image col-lg-6">
+                <img src="{{ url_for('static', path='3pic.png') }}" alt="account image">
+            </div>
+
+            <div class="account-content col-lg-6">
+                <br><br>
+                <h2>Read to Earn</h2>
+
+                <p class="wording">📈 10,000+ Organic Followers</p>
+                <p class="wording">️ Creator Rewards Program Enabled</p>
+                <p class="wording">🪪 Verify ID From Anywhere</p>
+                <p class="wording">📋 No Tax Information Needed</p>
+                
+           
+                
+            </div>
             
-        </div>
-    </div>
+            <div class="container px-4">
+                <br><br><br>
+                <h4>Loved By 10,000+ Users</h4>
+                <p style="color: #303C43;">We've got thousands of customers from all continents, here's what they say...</p>
+                <br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="rating-head">Tiktok shop enabled works well</p>
+                        <p class="rating-body">i've made my first $300 selling affiliate products on tiktok works very well</p>
+                        <p class="rating-score"> 4/5 </p>
+                        <p class="rating-name"> KARL</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="rating-head">4.5 stars from me</p>
+                        <p class="rating-body">Account was delivered immediately to my email address and worked perfectly fine.</p>
+                        <p class="rating-score"> 4.5/5 </p>
+                        <p class="rating-name"> PHIL</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="rating-head">Great stuff overall</p>
+                        <p class="rating-body">Account was delivered immediately to my email address and worked perfectly fine.</p>
+                        <p class="rating-score"> 5/5 </p>
+                        <p class="rating-name"> MUHAMMED</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="rating-head">Great for starters</p>
+                        <p class="rating-body">It works well for me that was
+                            struggling to get followers, but
+                            with this i can earn money
+                            without needing to do any
+                            tedious growth.</p>
+                        <p class="rating-score"> 4.5/5 </p>
+                        <p class="rating-name"> JOHN</p>
+                    </div>
+                </div>
+            </div>
+
+
 {%endblock%}

@@ -6,7 +6,7 @@ import psycopg2
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import app.schema,app.utils
-import app.models
+from app.models import Account
 from fastapi import Request,Form,Depends
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -27,5 +27,6 @@ Jinja2Templates(directory="app/templates")
 
 @app.get("/")
 def home(request: Request, db:Session=Depends(get_db),):
+    accounts = db.query(Account).all()
     templates = Jinja2Templates(directory="app/templates/public")
-    return templates.TemplateResponse("home.html", {"request": request})
+    return templates.TemplateResponse("home.html", {"request": request, "accounts": accounts})
