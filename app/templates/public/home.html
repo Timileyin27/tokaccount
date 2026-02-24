@@ -1,6 +1,54 @@
 {% extends "layout.html" %}
 {% block content %}
+<section class="hero">
 
+    <!-- Top Navigation Row -->
+    <div class="container-fluid">
+      <div class="container-fluid position-absolute top-0 start-0 end-0 px-4 py-3 d-flex justify-content-between align-items-center">
+  
+        <!-- Logo (Left) -->
+        <a href="#" class="logo">
+          <img src="{{ url_for('static', path='logo.png') }}" >
+        </a>
+  
+        <!-- Icons (Right) -->
+        <div class="d-flex align-items-center gap-4">
+          <a href="#">
+            <img src="{{ url_for('static', path='SVG.png') }}" style="color: black;">
+          </a>
+          <a href="#">
+            <img src="{{ url_for('static', path='cart.png') }}" style="color: black;" >
+          </a>
+        </div>
+  
+      </div>
+    </div>
+  
+    <div class="container text-center py-5">
+      <h1 class="display-3 fw-bold mb-3">
+        Manage & Monetize Digital Accounts Effortlessly
+      </h1>
+  
+      <p class="lead mb-4">
+        Secure, fast, and scalable account management platform built with 
+        <strong>FastAPI</strong>, <strong>Jinja2</strong>, 
+        <strong>SQLAlchemy</strong>, <strong>PostgreSQL</strong>, 
+        and <strong>Paystack</strong>.
+      </p>
+  
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="#dashboard" class="btn btn-primary btn-lg">Get Started</a>
+        <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+      </div>
+  
+      <div class="mt-4 text-light opacity-75">
+        <small>
+          Tech Stack: FastAPI • Jinja2 • SQLAlchemy • PostgreSQL • Paystack
+        </small>
+      </div>
+    </div>
+  
+  </section>
         <section class="accounts-section">
 
             {% for account in accounts %}
@@ -79,6 +127,6 @@
                     </div>
                 </div>
             </div>
-
-
+            </div>
+            <footer class="dark-footer"></footer>
 {%endblock%}
