@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% if cart_items %}
+
+        <div class="container my-5">
+            <h3> Your Cart</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Account Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.account.name }}</td>
+                        <td>₦{{ item.account.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>₦{{ item.account.price * item.quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h4>Total: ₦{{ total_price }}</h4>
+            <a href="/checkout" class="btn btn-success">Proceed to Checkout</a>
+            {% else %}
+                <div class="container my-5 vh-100">
+                    <h3> Your Cart</h3>
+                    <p>Your cart is currently empty.</p>
+                    <a href="/" class="btn btn-dark">Continue Shopping</a>
+                </div>
+            {% endif %}
+{% endblock %}
