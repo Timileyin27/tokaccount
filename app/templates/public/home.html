@@ -64,8 +64,15 @@
 
                     <p class="highlight">💰 Earn Money On Your First Post</p>
                     <p class="subtext">🌎 Get Monetized From Any Country</p>
-                    <button class="btn btn-dark">Add to Cart</button>
-                    <button class="btn btn-outline-dark">Buy Now</button>
+                    
+                    <form action="/cart/add" method="post">
+                        <input type="hidden" name="account_id" value="{{ account.id }}">
+                    
+                       <p>Quantity: </p> <input type="number" name="quantity" value="1" min="1">
+                        <br><br>
+                        <button type="submit" class="btn btn-dark">Add to Cart</button>
+                        <button type="submit" class="btn btn-outline-dark">Buy Now</button>
+                    </form>
                 </div>
 
             </div>

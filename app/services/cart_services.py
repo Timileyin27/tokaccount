@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import uuid
 
 CART_DURATION_MINUTES = 50
-def get_or_create_cart(request: Request, response: Response, db: Session):
+def get_or_create_cart(request: Request,  db: Session):
     cart_reference= request.cookies.get("cart_reference")
     cart = None
     if cart_reference:
@@ -16,14 +16,8 @@ def get_or_create_cart(request: Request, response: Response, db: Session):
         new_reference = str(uuid.uuid4())
         cart = app.models.Cart(cart_reference=new_reference, status=app.models.CartStatus.ACTIVE)
     
-    db.add(cart)
-    db.commit()
-    db.refresh(cart)
-    response.set_cookie(
-                key="cart_reference",
-                value=new_reference,
-                httponly=True,
-                max_age=50 * 60  # 50 minutes
-            )
-
-    return cart
+        db.add(cart)
+        db.commit()
+        db.refresh(cart)
+        return cart, new_reference
+    return cart, None

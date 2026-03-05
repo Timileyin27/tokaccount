@@ -56,6 +56,7 @@ class CartItem (Base):
     account_id = Column(Integer, ForeignKey("account_type.id", ondelete="CASCADE"), nullable=False)
     quantity = Column(Integer, nullable=False)
     unit_at_addition = Column(Float, nullable=False)
+    account = relationship("Account")
 class PaymentStatus(str, Enum):
     PENDING = "PENDING"
     COMPLETED = "COMPLETED"

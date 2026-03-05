@@ -13,9 +13,8 @@ router = APIRouter(
     tags=["Cart"]
 )
 @router.post("/add")
-def add_to_cart(account_id: int = Form(...),quantity: int = Form(...),request: Request = None, response: Response = None, db: Session = Depends(get_db)):
-    cart_reference = request.cookies.get("cart_reference")
-    cart = get_or_create_cart(request,response,db)
+def add_to_cart(account_id: int = Form(...),quantity: int = Form(...),request: Request = None, db: Session = Depends(get_db)):
+    cart,new_reference = get_or_create_cart(request,db)
     account=db.query(app.models.Account).filter(app.models.Account.id == account_id).first()
     if not account:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Account with id: {account_id} not found")
@@ -26,16 +25,34 @@ def add_to_cart(account_id: int = Form(...),quantity: int = Form(...),request: R
     if cart_item:
         cart_item.quantity += quantity
     else:
-        new_item=app.models.CartItem(cart_id=cart.id, account_id=account_id, quantity=quantity)
+        new_item=app.models.CartItem(cart_id=cart.id, account_id=account_id, quantity=quantity,unit_at_addition=account.price)
         db.add(new_item)
     db.commit()
 
-    return RedirectResponse(url="/cart/view", status_code=303)
+    response= RedirectResponse(url="/cart/view", status_code=303)
+    if new_reference:
+        response.set_cookie(
+            key="cart_reference",
+            value=new_reference,
+            httponly=True,
+            max_age=50 * 60
+        )
+
+    return response
 @router.get("/view")
-def view_cart(request: Request,response:Response, db: Session = Depends(get_db)):
+def view_cart(request: Request, db: Session = Depends(get_db)):
     cart_reference = request.cookies.get("cart_reference")
-    cart = get_or_create_cart(request, response, db)
+    cart, _ = get_or_create_cart(request, db)
     cart_items = db.query(app.models.CartItem).filter(app.models.CartItem.cart_id == cart.id).all()
-    total = sum(item.quantity * item.account.price for item in cart_items)
+    total = sum(item.quantity * item.unit_at_addition  for item in cart_items)
     templates = Jinja2Templates(directory="app/templates/public")
     return templates.TemplateResponse("cart.html", {"request": request, "cart_items": cart_items, "total": total})
+@router.post("/remove/{cart_item_id}")
+def remove_from_cart(cart_item_id: int, request: Request, db: Session = Depends(get_db)):
+    cart, _ = get_or_create_cart(request, db)
+    cart_item = db.query(app.models.CartItem).filter(app.models.CartItem.id == cart_item_id, app.models.CartItem.cart_id == cart.id).first()
+    if not cart_item:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Cart item with id: {cart_item_id} not found in your cart")
+    db.delete(cart_item)
+    db.commit()
+    return RedirectResponse(url="/cart/view", status_code=303)
