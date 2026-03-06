@@ -29,7 +29,9 @@ def add_to_cart(account_id: int = Form(...),quantity: int = Form(...),request: R
         db.add(new_item)
     db.commit()
 
-    response= RedirectResponse(url="/cart/view", status_code=303)
+    request.session["message"] = "Account added to cart"
+
+    response = RedirectResponse(request.headers.get("referer"), status_code=303)
     if new_reference:
         response.set_cookie(
             key="cart_reference",

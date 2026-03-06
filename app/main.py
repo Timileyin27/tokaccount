@@ -15,13 +15,15 @@ from typing import Optional,List
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 from app.database import get_db
-
+from starlette.middleware.sessions import SessionMiddleware
 app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
 app.router.include_router(account.router)
 app.router.include_router(user.router)
 app.router.include_router(auth.router)
 app.router.include_router(cart.router)
+
+app.add_middleware(SessionMiddleware, secret_key="your_secret_key_here")
 
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")

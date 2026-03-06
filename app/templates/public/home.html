@@ -35,9 +35,10 @@
         <strong>SQLAlchemy</strong>, <strong>PostgreSQL</strong>, 
         and <strong>Paystack</strong>.
       </p>
-  
+      <small> This is project is focused on the backend side  and not really on UI </small>
+      <br><br>
       <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="#dashboard" class="btn btn-primary btn-lg">Get Started</a>
+        <a href="/login" class="btn btn-primary btn-lg">Go to Seller Dashboard</a>
         <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
       </div>
   
@@ -94,8 +95,15 @@
                 <p class="wording">🪪 Verify ID From Anywhere</p>
                 <p class="wording">📋 No Tax Information Needed</p>
                 
-           
-                
+                 {% if response %}
+                 <div class="toast show">
+                    <div class="toast-body">
+                        {{ request.session.get("message") }}
+                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                    </div>
+                    
+                </div>
+                {% endif %}
             </div>
             
             <div class="container px-4">

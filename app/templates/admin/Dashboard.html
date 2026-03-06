@@ -43,7 +43,7 @@
             <p style="padding: 15px; font-weight: bold;">Account Dashboard</p>
             <thead>
                 <tr >
-                    <th style="color: red;">ID</th>
+                    <th style="color: red;">S/N</th>
                     <th style="color: red;">Name</th>
                     <th style="color: red;">Price</th>
                     <th style="color: red;">Stock</th>
@@ -53,7 +53,7 @@
             <tbody>
                 {% for account in accounts %}
                 <tr>
-                    <td>{{ account.id }}</td>
+                    <td>{{ loop.index }}</td>
                     <td>{{ account.name }}</td>
                     <td>₦{{ account.price }}</td>
                     <td>{{account.amount_in_stock }}</td>

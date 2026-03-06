@@ -2,32 +2,51 @@
 {% block content %}
     {% if cart_items %}
 
-        <div class="container my-5">
-            <h3> Your Cart</h3>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Account Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in cart_items %}
-                    <tr>
-                        <td>{{ item.account.name }}</td>
-                        <td>₦{{ item.account.price }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td><form action="/cart/remove/{{ item.id }}" method="post">
-                            <button class="btn  btn-link" type="submit" style="color: red;">Remove</button>
-                        </form></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <h4>Total: ₦{{ total }}</h4>
-            <a href="/checkout" class="btn btn-success">Proceed to Checkout</a>
+       <div class="container my-5">
+    <h3>Your Cart</h3>
+        <br><br>
+    <div class="row">
+        {% for item in cart_items %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+            <div class="card h-100">
+                <div class="card-body">
+
+                    <img src="{{ url_for('static', path='3pic.png') }}" 
+                         alt="account image" 
+                         style="width:90px; height:90px;">
+
+                    <h5 class="card-title">Name: {{ item.account.name }}</h5>
+
+                    <p class="card-text">Price: ₦{{ item.account.price }}</p>
+
+                    <p class="card-text text-danger">
+                        Quantity: {{ item.quantity }}
+                    </p>
+
+                    <p class="card-text">
+                        Total Price: ₦{{ item.account.price * item.quantity }}
+                    </p>
+
+                    <form action="/cart/remove/{{ item.id }}" method="post">
+                        <button class="btn btn-danger w-100" type="submit">
+                            Remove
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    <br>
+    <h4>Total: ₦{{ total }}</h4>
+
+            <br>
+            <a href="/checkout" class="btn btn-dark" style="justify-content: center; place-items: center;">Proceed to Checkout</a>
+        </div>
             {% else %}
                 <div class="container my-5 vh-100">
                     <h3> Your Cart</h3>
