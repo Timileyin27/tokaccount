@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     algorithm: str
     access_token_expire_minutes: int
     database_url: str 
+    cart_duration_minutes :int
     class Config:
         env_file = ".env"
 settings = Settings()

@@ -3,8 +3,9 @@ from sqlalchemy.orm import Session
 import app.models
 from datetime import datetime, timedelta
 import uuid
+from app.config import settings
 
-CART_DURATION_MINUTES = 50
+CART_DURATION_MINUTES = settings.cart_duration_minutes
 def get_or_create_cart(request: Request,  db: Session):
     cart_reference= request.cookies.get("cart_reference")
     cart = None
