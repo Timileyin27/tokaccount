@@ -26,7 +26,7 @@ class Account (Base):
 class OrderStatus(str, Enum):
     PENDING = "PENDING"
     COMPLETED = "COMPLETED"
-    FAILED = "FAILED"
+
 
 class Order (Base):
     __tablename__="orders"
@@ -36,6 +36,16 @@ class Order (Base):
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     total_amount = Column(Float, nullable=False)
     customer_email = Column(String, nullable=False)
+
+class OrderItem (Base):
+    __tablename__="order_item"
+    id = Column(Integer, primary_key=True, nullable=False)
+    order_id = Column(Integer, ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
+    account_id = Column(Integer, ForeignKey("account_type.id", ondelete="CASCADE"), nullable=False)
+    quantity = Column(Integer, nullable=False)
+    unit_price = Column(Float, nullable=False)
+
+
 
 
 class CartStatus(str, Enum):

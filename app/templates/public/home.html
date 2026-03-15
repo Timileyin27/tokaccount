@@ -95,7 +95,7 @@
                 <p class="wording">🪪 Verify ID From Anywhere</p>
                 <p class="wording">📋 No Tax Information Needed</p>
                 
-                 {% if response %}
+                {% if request.session.get("message") %}
                  <div class="toast show">
                     <div class="toast-body">
                         {{ request.session.get("message") }}
