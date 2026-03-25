@@ -58,3 +58,11 @@ def remove_from_cart(cart_item_id: int, request: Request, db: Session = Depends(
     db.delete(cart_item)
     db.commit()
     return RedirectResponse(url="/cart/view", status_code=303)
+@router.get("/checkout")
+def checkout(request: Request, db:Session=Depends(get_db),):
+    cart_reference = request.cookies.get("cart_reference")
+    cart, _ = app.services.cart_services.get_or_create_cart(request, db)
+    cart_items = db.query(app.models.CartItem).filter(app.models.CartItem.cart_id == cart.id).all()
+    total = sum(item.quantity * item.unit_at_addition  for item in cart_items)
+    templates = Jinja2Templates(directory="app/templates/public")
+    return templates.TemplateResponse("checkout.html", {"request": request, "cart_items": cart_items, "total": total})

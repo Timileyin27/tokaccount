@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.database import engine, Base
 import app.models as models
-from app.routers import  account, user, auth, cart
+from app.routers import  account, user, auth, cart,payment
 import psycopg2
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -22,7 +22,7 @@ app.router.include_router(account.router)
 app.router.include_router(user.router)
 app.router.include_router(auth.router)
 app.router.include_router(cart.router)
-
+app.router.include_router(payment.router)
 app.add_middleware(SessionMiddleware, secret_key="your_secret_key_here")
 
 

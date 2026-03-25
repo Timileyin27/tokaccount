@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container my-5">
+
+    <h2>Checkout</h2>
+    <br>
+    <div class="row">
+    <div class="col-lg-7">
+    <form action="/payment/initiate" method="post">
+    
+    <div class="mb-3">
+    <label class="form-label">Full Name</label>
+    <input type="text" name="name" class="form-control" required>
+    </div>
+    
+    <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="email" name="email" class="form-control" required>
+    </div>
+    
+
+    <br><br>
+    <button class="btn btn-primary w-100">
+    Proceed to Payment
+    </button>
+    
+    </form>
+    
+    </div>
+    
+    <br><br>
+   
+    <div class="col-lg-5">
+    
+    <div class="card">
+    <div class="card-body">
+    
+    <h5>Your Order</h5>
+    
+    {% for item in cart_items %}
+    
+    <div class="d-flex justify-content-between">
+    <span>{{ item.account.name }}</span>
+    <span>₦{{ item.account.price * item.quantity }}</span>
+    </div>
+    <br>
+    {% endfor %}
+    
+    <hr>
+    
+    <h5 class="d-flex justify-content-between">
+    <span>Total</span>
+    <span>₦{{ total }}</span>
+    </h5>
+    
+    </div>
+    </div>
+    
+    </div>
+    
+    </div>
+    </div>
+{% endblock %}
