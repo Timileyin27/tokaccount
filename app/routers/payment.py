@@ -58,4 +58,29 @@ def verify(reference:str, request:Request,db:Session=Depends(get_db)):
 @router.get("/callback")
 def payment_callback(request: Request):
     templates = Jinja2Templates(directory="app/templates/public")
-    return templates.TemplateResponse("callback.html", {"request": request})
+    reference = request.query_params.get("reference")
+    print("Reference:", reference)
+    if not reference:
+        return templates.TemplateResponse("callback.html", {
+            "request": request,
+            "error": "No reference provided"
+        })
+    response = verify_payment(reference)
+    print("Verify response:", response)
+    if not response.get("status"):
+        return templates.TemplateResponse("callback.html", {
+            "request": request,
+            "error": "Verification failed"
+        })
+    data = response.get("data")
+    if data["status"] != "success":
+        return templates.TemplateResponse("callback.html", {
+            "request": request,
+            "error": "Payment not successful"
+        })
+
+    return templates.TemplateResponse("callback.html", {
+        "request": request,
+        "success": True,
+        "reference": reference
+    })
