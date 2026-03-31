@@ -13,12 +13,21 @@
   
         <!-- Icons (Right) -->
         <div class="d-flex align-items-center gap-4">
-          <a href="#">
-            <img src="{{ url_for('static', path='SVG.png') }}" style="color: black;">
-          </a>
-          <a href="/cart/view">
-            <img src="{{ url_for('static', path='cart.png') }}" style="color: black;" >
-          </a>
+          {% if message %}
+            <div class="toast show">
+               <div class="toast-body" style="color: black;">
+                   {{ message }}
+                   <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+               </div>
+               
+           </div>
+           {% endif %}
+           <a href="/cart/view" style="position: relative; display: inline-block;">
+    
+            <img src="/static/cart.png" width="30">
+        
+            
+        </a>
         </div>
   
       </div>
@@ -39,7 +48,7 @@
       <br><br>
       <div class="d-flex justify-content-center gap-3 flex-wrap">
         <a href="/login" class="btn btn-primary btn-lg">Go to Seller Dashboard</a>
-        <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+        <a href="#" class="btn btn-outline-light btn-lg">Learn More</a>
       </div>
   
       <div class="mt-4 text-light opacity-75">
@@ -53,6 +62,7 @@
         <section class="accounts-section">
 
             {% for account in accounts %}
+           
             <div class="account-row {% if loop.index % 2 == 0 %}reverse{% endif %} row">
                 
                 <div class="account-image col-lg-6">
@@ -62,6 +72,7 @@
                 <div class="account-content col-lg-6">
                     <h2>{{ account.name }}</h2>
                     <p style="font-size: 35px; color: red;"> {{account.price}}</p>
+                    
 
                     <p class="highlight">💰 Earn Money On Your First Post</p>
                     <p class="subtext">🌎 Get Monetized From Any Country</p>
@@ -77,6 +88,7 @@
                 </div>
 
             </div>
+            
             {% endfor %}
 
         </section>
@@ -94,16 +106,7 @@
                 <p class="wording">️ Creator Rewards Program Enabled</p>
                 <p class="wording">🪪 Verify ID From Anywhere</p>
                 <p class="wording">📋 No Tax Information Needed</p>
-                
-                {% if request.session.get("message") %}
-                 <div class="toast show">
-                    <div class="toast-body">
-                        {{ request.session.get("message") }}
-                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                    </div>
-                    
-                </div>
-                {% endif %}
+              
             </div>
             
             <div class="container px-4">

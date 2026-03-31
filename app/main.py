@@ -15,6 +15,7 @@ from typing import Optional,List
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 from app.database import get_db
+
 from starlette.middleware.sessions import SessionMiddleware
 app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
@@ -30,7 +31,9 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 Jinja2Templates(directory="app/templates")
 
 @app.get("/")
-def home(request: Request, db:Session=Depends(get_db),):
+def home(request: Request, db:Session=Depends(get_db)):
+    message = request.session.pop("message", None)
+
     accounts = db.query(Account).all()
     templates = Jinja2Templates(directory="app/templates/public")
-    return templates.TemplateResponse("home.html", {"request": request, "accounts": accounts})
+    return templates.TemplateResponse("home.html", {"request": request, "accounts": accounts ,"message": message})
