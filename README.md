@@ -1,4 +1,5 @@
 # TokAccounts
+[![Live Demo](https://img.shields.io/badge/Live-Production-brightgreen)](https://tokaccount.onrender.com/)
 
 **TokAccounts** is a web platform for buying digital accounts and products, supporting both **cart** and **buy now** options. Payments are securely processed via **Paystack**, and admins can manage orders and track account availability.  
 

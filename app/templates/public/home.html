@@ -21,6 +21,8 @@
                </div>
                
            </div>
+
+           {% do request.session.pop("message", None) %}
            {% endif %}
            <a href="/cart/view" style="position: relative; display: inline-block;">
     
