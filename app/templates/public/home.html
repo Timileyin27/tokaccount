@@ -2,27 +2,25 @@
 {% block content %}
 <section class="hero">
 
-    <!-- Top Navigation Row -->
+    
     <div class="container-fluid">
       <div class="container-fluid position-absolute top-0 start-0 end-0 px-4 py-3 d-flex justify-content-between align-items-center">
   
-        <!-- Logo (Left) -->
+        
         <a href="#" class="logo">
           <img src="{{ url_for('static', path='logo.png') }}" >
         </a>
   
-        <!-- Icons (Right) -->
+       
         <div class="d-flex align-items-center gap-4">
           {% if message %}
-            <div class="toast show">
-               <div class="toast-body" style="color: black;">
-                   {{ message }}
-                   <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-               </div>
-               
-           </div>
-
-           {% do request.session.pop("message", None) %}
+            <div class="toast show mx-auto" style="max-width: 300px; width: 90%;">
+              <div class="toast-body text-center" style="color: black;">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+              </div>
+            </div>
+           
            {% endif %}
            <a href="/cart/view" style="position: relative; display: inline-block;">
     
@@ -85,7 +83,7 @@
                        <p>Quantity: </p> <input type="number" name="quantity" value="1" min="1">
                         <br><br>
                         <button type="submit" class="btn btn-dark">Add to Cart</button>
-                        <button type="submit" class="btn btn-outline-dark">Buy Now</button>
+                        
                     </form>
                 </div>
 
