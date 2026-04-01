@@ -53,7 +53,7 @@ def verify(reference:str, request:Request,db:Session=Depends(get_db)):
             db.delete(item)
         db.commit()   
         request.session["message"] = "Payment successful and order created"
-        response = RedirectResponse(url="/cart/view", status_code=303)
+        response = RedirectResponse(url="/", status_code=303)
         response.delete_cookie("cart_reference")
         return response
 @router.get("/callback")

@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
+BASE_URL = os.getenv('BASE_URL')
 
 def initialize_payment(email: str, amount: int):
     url = "https://api.paystack.co/transaction/initialize"
@@ -14,7 +15,7 @@ def initialize_payment(email: str, amount: int):
     data = {
         "email": email,
         "amount": amount * 100,  
-        "callback_url": "http://localhost:8910/payment/callback"
+        "callback_url": f"{BASE_URL}/payment/callback"
     }
     response = requests.post(url, json=data, headers=headers)
     return response.json()
