@@ -9,6 +9,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from app.services.cart_services import get_or_create_cart
 from app.services.payment_services import initialize_payment,verify_payment
+from app.models import Account
 router = APIRouter(
     prefix="/payment",
     tags=["Payment"]
@@ -56,7 +57,7 @@ def verify(reference:str, request:Request,db:Session=Depends(get_db)):
         response.delete_cookie("cart_reference")
         return response
 @router.get("/callback")
-def payment_callback(request: Request):
+def payment_callback(request: Request, db: Session = Depends(get_db)):
     templates = Jinja2Templates(directory="app/templates/public")
     reference = request.query_params.get("reference")
     print("Reference:", reference)
@@ -65,22 +66,6 @@ def payment_callback(request: Request):
             "request": request,
             "error": "No reference provided"
         })
-    response = verify_payment(reference)
-    print("Verify response:", response)
-    if not response.get("status"):
-        return templates.TemplateResponse("callback.html", {
-            "request": request,
-            "error": "Verification failed"
-        })
-    data = response.get("data")
-    if data["status"] != "success":
-        return templates.TemplateResponse("callback.html", {
-            "request": request,
-            "error": "Payment not successful"
-        })
-
-    return templates.TemplateResponse("callback.html", {
-        "request": request,
-        "success": True,
-        "reference": reference
-    })
+    
+    return RedirectResponse(f"/payment/verify?reference={reference}")
+   
