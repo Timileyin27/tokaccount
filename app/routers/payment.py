@@ -51,8 +51,10 @@ def verify(reference:str, request:Request,db:Session=Depends(get_db)):
             if account.amount_in_stock < item.quantity:
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Not enough stock for account with id: {account.id}")
             account.amount_in_stock -= item.quantity
+            if account.amount_in_stock <= 0:
+                db.delete(account)
             account.amount_sold += item.quantity
-            order_item = app.models.OrderItem(order_id=new_order.id, account_id=account.id, quantity=item.quantity, unit_price=item.unit_at_addition)
+            order_item = app.models.OrderItem(order_id=new_order.id, account_id=account.id,quantity=item.quantity, unit_price=item.unit_at_addition)
             db.add(order_item)
             db.delete(item)
         db.commit()   
