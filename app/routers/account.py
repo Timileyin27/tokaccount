@@ -41,8 +41,9 @@ def create_account( request: Request, name: str = Form(...), price: float = Form
 def add_account(request: Request, db:Session=Depends(get_db),current_user:app.models.User=Depends(get_current_user)):
     templates = Jinja2Templates(directory="app/templates/admin")
     return templates.TemplateResponse("add_account.html", {"request": request,"current_user":current_user})
-@router.get("order")
-def order_accounts(request: Request, db:Session=Depends(get_db)):
+@router.get("/order")
+def order_accounts(request: Request, db:Session=Depends(get_db),current_user:app.models.User=Depends(get_current_user)):
     templates = Jinja2Templates(directory="app/templates/admin")
     orders = db.query(app.models.Order).order_by(app.models.Order.created_at.desc()).all()
-    return templates.TemplateResponse("order.html", {"request": request, "orders": orders})
+    accounts = db.query(app.models.Account).filter(app.models.Account.owner_id == current_user.id).all()
+    return templates.TemplateResponse("order.html", {"request": request, "current_user":current_user,"orders": orders,"accounts": accounts})

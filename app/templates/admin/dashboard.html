@@ -2,20 +2,20 @@
 {% block content %}
     {% if current_user %}
     <div class="container my-5">
-        <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3">
-            
-            <h3 class="mb-2 mb-md-0">Welcome {{ current_user.email }}</h3>
-    
-            <div class="d-flex flex-column flex-sm-row gap-2 ms-auto">
-                <a href="/Dashboard/add">
-                    <button type="button" class="btn btn-danger w-100 w-sm-auto">Add Another Account</button>
-                </a>
-                <a href="/logout">
-                    <button type="button" class="btn btn-outline-danger w-100 w-sm-auto">Logout</button>
-                </a>
+            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3">
+                
+                <h3 class="mb-2 mb-md-0">Welcome {{ current_user.email }}</h3>
+        
+                <div class="d-flex flex-column flex-sm-row gap-2 ms-auto">
+                    <a href="/Dashboard/add">
+                        <button type="button" class="btn btn-danger w-100 w-sm-auto">Add Another Account</button>
+                    </a>
+                    <a href="/logout">
+                        <button type="button" class="btn btn-outline-danger w-100 w-sm-auto">Logout</button>
+                    </a>
+                </div>
             </div>
-        </div>
-    </div>
+    
         <br>
         <div class="row mb-4 p-3">
             <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
@@ -46,35 +46,35 @@
                 </div>
             </div>
         </div>
-        
-    <div class="table-responsive rounded-3 overflow-hidden border " style="background-color: #7d868e" >
-        <table class="table table-secondary  table-bordered table-hover align-middle custom-table-spacing p-3" >
-            <p style="padding: 15px; font-weight: bold;">Account Dashboard</p>
-            <thead>
-                <tr >
-                    <th style="color: red;">S/N</th>
-                    <th style="color: red;">Name</th>
-                    <th style="color: red;">Price</th>
-                    <th style="color: red;">Stock</th>
-                    <th style="color: red;">Sold</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for account in accounts %}
-                <tr>
-                    <td>{{ loop.index }}</td>
-                    <td>{{ account.name }}</td>
-                    <td>₦{{ account.price }}</td>
-                    <td>{{account.amount_in_stock }}</td>
-                    <td>{{ account.amount_sold }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div class="d-flex justify-content-end gap-3 ms-auto" >
-            <a href="#"><button type="button" class="btn btn-dark  mt-4">Ordered Account</button></a>
-    </div>
+            
+        <div class="table-responsive rounded-3 overflow-hidden border " style="background-color: #7d868e" >
+            <table class="table table-secondary  table-bordered table-hover align-middle custom-table-spacing p-3" >
+                <p style="padding: 15px; font-weight: bold;">Account Dashboard</p>
+                <thead>
+                    <tr >
+                        <th style="color: red;">S/N</th>
+                        <th style="color: red;">Name</th>
+                        <th style="color: red;">Price</th>
+                        <th style="color: red;">Stock</th>
+                        <th style="color: red;">Sold</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for account in accounts %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ account.name }}</td>
+                        <td>₦{{ account.price }}</td>
+                        <td>{{account.amount_in_stock }}</td>
+                        <td>{{ account.amount_sold }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-end gap-3 ms-auto" >
+                <a href="/Dashboard/order"><button type="button" class="btn btn-dark  mt-4">Ordered Account</button></a>
+        </div>
     </div>
    {% else %}
     <div class="container my-5">

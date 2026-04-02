@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% if current_user %}
+     <div class="container my-5 " style="font-family:  Tahoma, Geneva, Verdana, sans-serif;">
+        <h3> ORDERS</h3>
+        <br><br>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Account Type</th>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Customer Email</th>
+                        <th>Total Amount sold</th>
+                        <th>Revenue Made</th>
+                        <th>Order Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    {% for item in order.items %}
+                    <tr>
+                        <td>{{ item.account.name }}</td>  
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.name }}</td>
+                        <td>{{ order.customer_email }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>₦{{ order.total_amount }}</td>
+                        <td>{{ order.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="container my-5 " style="font-family:  Tahoma, Geneva, Verdana, sans-serif;">  
+                <div class="d-flex justify-content-between align-items-center">
+                    <button type="submit" class="btn btn-dark" onclick="window.history.back()">Back</button>
+                </div>
+        </div>
+        {% else %}
+        <div class="container my-5">
+            <p>You Need to sign IN.</p>
+        </div>
+        {% endif %}
+    {%endblock%}

@@ -33,7 +33,6 @@ Jinja2Templates(directory="app/templates")
 @app.get("/")
 def home(request: Request, db:Session=Depends(get_db)):
     message = request.session.pop("message", None)
-
     accounts = db.query(Account).all()
     templates = Jinja2Templates(directory="app/templates/public")
     return templates.TemplateResponse("home.html", {"request": request, "accounts": accounts ,"message": message})

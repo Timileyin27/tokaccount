@@ -36,7 +36,7 @@ class Order (Base):
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     total_amount = Column(Float, nullable=False)
     customer_email = Column(String, nullable=False)
-
+    items = relationship("OrderItem", back_populates="order")
 class OrderItem (Base):
     __tablename__="order_item"
     id = Column(Integer, primary_key=True, nullable=False)
@@ -44,7 +44,8 @@ class OrderItem (Base):
     account_id = Column(Integer, ForeignKey("account_type.id", ondelete="CASCADE"), nullable=False)
     quantity = Column(Integer, nullable=False)
     unit_price = Column(Float, nullable=False)
-
+    order = relationship("Order", back_populates="items")
+    account = relationship("Account")
 
 
 
