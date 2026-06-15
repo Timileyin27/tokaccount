@@ -36,6 +36,6 @@ def home(request: Request, db:Session=Depends(get_db)):
     accounts = db.query(Account).all()
     templates = Jinja2Templates(directory="app/templates/public")
     return templates.TemplateResponse("home.html", {"request": request, "accounts": accounts ,"message": message})
-@app.get("/health")
+@app.get("/healthz")
 async def health_check():
     return {"status": "alive"}
